@@ -22,12 +22,13 @@ export async function POST(req: Request) {
       body: {
         items: [
           {
-            title:
-              body.title || "Inversión",
-            quantity: 1,
-            unit_price: Number(body.amount),
-            currency_id: "ARS",
-          },
+  id: "investment",
+  title:
+    body.title || "Inversión",
+  quantity: 1,
+  unit_price: Number(body.amount),
+  currency_id: "ARS",
+},
         ],
       },
     });
