@@ -445,6 +445,52 @@ async function invest(project: any) {
                     </p>
                   </div>
 
+                  <div className="mt-8">
+
+  <div className="flex justify-between text-sm mb-3">
+
+    <span className="text-zinc-400">
+      Financiado
+    </span>
+
+    <span className="font-semibold">
+      {Math.min(
+        Math.round(
+          (
+            (Number(project.current_amount || 0) /
+              Number(project.target_amount)
+            ) *
+            100
+          ),
+        100
+      )}%
+    </span>
+
+  </div>
+
+  <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
+
+    <div
+      className="h-3 bg-green-500 rounded-full"
+      style={{
+        width: `${
+          Math.min(
+            (
+              (Number(project.current_amount || 0) /
+                Number(project.target_amount)
+              ) *
+              100,
+            ),
+            100
+          )
+        }%`,
+      }}
+    />
+
+  </div>
+
+</div>
+
                   <div>
                     <p className="text-zinc-500 text-sm">
                       Duración

@@ -16,24 +16,34 @@ export async function POST(req: Request) {
       // DEMO:
       // aprobar última inversión pending
 
-      const { data: investments } = await supabase
-        .from("investments")
-        .select("*")
-        .eq("status", "pending")
-        .limit(1);
+      const { data: investments } await supabase
+  .from("investments")
+  .update({
+    status: "approved",
+  })
+  .eq("id", investment.id);
 
-      if (
-        investments &&
-        investments.length > 0
-      ) {
-        const investment = investments[0];
+const { data: project } =await supabase
+    .from("projects")
+    .select("current_amount")
+    .eq("id", investment.project_id)
+    .single();
 
-        await supabase
-          .from("investments")
-          .update({
-            status: "approved",
-          })
-          .eq("id", investment.id);
+if (project) {
+
+  await supabase
+    .from("projects")
+    .update({
+      current_amount:
+        Number(project.current_amount || 0) +
+        Number(investment.amount),
+    })
+    .eq(
+      "id",
+      investment.project_id
+    );
+
+};
 
         console.log(
           "INVERSIÓN APROBADA:",
