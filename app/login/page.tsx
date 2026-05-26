@@ -209,6 +209,76 @@ async function invest(project: any) {
             </h2>
           </div>
         </div>
+        <div className="mt-12">
+
+  <h2 className="text-3xl font-bold mb-6">
+    Mis inversiones
+  </h2>
+
+  <div className="space-y-4">
+
+    {investments.map((investment) => (
+
+      <div
+        key={investment.id}
+        className="bg-zinc-900 p-6 rounded-3xl flex justify-between items-center"
+      >
+
+        <div>
+
+          <p className="text-zinc-500 text-sm">
+            Proyecto
+          </p>
+
+          <h3 className="text-xl font-bold">
+            {investment.project_id}
+          </h3>
+
+        </div>
+
+        <div>
+
+          <p className="text-zinc-500 text-sm">
+            Monto
+          </p>
+
+          <h3 className="font-semibold">
+            USD {investment.amount}
+          </h3>
+
+        </div>
+
+        <div>
+
+          <p className="text-zinc-500 text-sm">
+            Estado
+          </p>
+
+          <h3 className="font-semibold text-green-500">
+            {investment.status}
+          </h3>
+
+        </div>
+
+        <div>
+
+          <p className="text-zinc-500 text-sm">
+            ROI
+          </p>
+
+          <h3 className="font-semibold">
+            12%
+          </h3>
+
+        </div>
+
+      </div>
+
+    ))}
+
+  </div>
+
+</div>
 
         <div className="bg-zinc-900 p-6 rounded-3xl mt-10">
           <h2 className="text-2xl font-bold mb-6">
@@ -290,6 +360,50 @@ async function invest(project: any) {
             </button>
           </div>
         </div>
+
+        <div className="grid md:grid-cols-4 gap-6 mb-10">
+
+  <div className="bg-zinc-900 p-6 rounded-3xl">
+    <p className="text-zinc-500 text-sm">
+      Portafolio Total
+    </p>
+
+    <h2 className="text-4xl font-bold mt-3">
+      USD {totalInvested}
+    </h2>
+  </div>
+
+  <div className="bg-zinc-900 p-6 rounded-3xl">
+    <p className="text-zinc-500 text-sm">
+      Inversiones Activas
+    </p>
+
+    <h2 className="text-4xl font-bold mt-3">
+      {investments.length}
+    </h2>
+  </div>
+
+  <div className="bg-zinc-900 p-6 rounded-3xl">
+    <p className="text-zinc-500 text-sm">
+      ROI Proyectado
+    </p>
+
+    <h2 className="text-4xl font-bold mt-3">
+      12%
+    </h2>
+  </div>
+
+  <div className="bg-zinc-900 p-6 rounded-3xl">
+    <p className="text-zinc-500 text-sm">
+      Retorno Esperado
+    </p>
+
+    <h2 className="text-4xl font-bold mt-3">
+      USD {(Number(totalInvested)*1.12).toFixed(0)}
+    </h2>
+  </div>
+
+</div>
 
         <main className="mt-10">
           <h2 className="text-3xl font-bold mb-6">
