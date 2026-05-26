@@ -39,6 +39,26 @@ export default function Home() {
       setSession(session);
 
       if (session) {
+        const chartData = projects.map(
+  (project) => ({
+    name: project.title,
+
+    value: investments
+      .filter(
+        (i) =>
+          i.project_id === project.id
+      )
+      .reduce(
+        (sum, i) =>
+          sum + Number(i.amount),
+        0
+      ),
+  })
+);
+
+console.log("PROJECTS:", projects);
+console.log("INVESTMENTS:", investments);
+
         loadInvestments(session.user.id);
       }
     });
@@ -50,7 +70,25 @@ export default function Home() {
     } = await supabase.auth.getSession();
 
     setSession(session);
+const chartData = projects.map(
+  (project) => ({
+    name: project.title,
 
+    value: investments
+      .filter(
+        (i) =>
+          i.project_id === project.id
+      )
+      .reduce(
+        (sum, i) =>
+          sum + Number(i.amount),
+        0
+      ),
+  })
+);
+
+console.log("PROJECTS:", projects);
+console.log("INVESTMENTS:", investments);
     if (session) {
       loadInvestments(session.user.id);
     }
@@ -218,28 +256,9 @@ async function invest(project: any) {
         <div className="mt-12">
 
   <h2 className="text-3xl font-bold mb-6">
-    console.log("PROJECTS:", projects);
-console.log("INVESTMENTS:", investments);
-    const chartData = projects.map(
-  (project) => ({
-
-    name: project.title,
-
-    value: investments
-      .filter(
-        (i) =>
-          i.project_id === project.id
-      )
-      .reduce(
-        (sum, i) =>
-          sum + Number(i.amount),
-        0
-      ),
-
-  })
-);
     Mis inversiones
   </h2>
+
 
   <div className="space-y-4">
 
@@ -256,7 +275,7 @@ console.log("INVESTMENTS:", investments);
             Proyecto
           </p>
 
-          <<h3 className="text-xl font-bold text-green-400">
+          <h3 className="text-xl font-bold text-green-400">
   {
     projects.find(
       p => p.id === investment.project_id
