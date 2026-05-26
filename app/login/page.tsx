@@ -3,6 +3,12 @@ import { initMercadoPago } from "@mercadopago/sdk-react";
 
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
 initMercadoPago(
   process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!
 );
@@ -212,6 +218,26 @@ async function invest(project: any) {
         <div className="mt-12">
 
   <h2 className="text-3xl font-bold mb-6">
+    console.log("PROJECTS:", projects);
+console.log("INVESTMENTS:", investments);
+    const chartData = projects.map(
+  (project) => ({
+
+    name: project.title,
+
+    value: investments
+      .filter(
+        (i) =>
+          i.project_id === project.id
+      )
+      .reduce(
+        (sum, i) =>
+          sum + Number(i.amount),
+        0
+      ),
+
+  })
+);
     Mis inversiones
   </h2>
 
@@ -230,9 +256,15 @@ async function invest(project: any) {
             Proyecto
           </p>
 
-          <h3 className="text-xl font-bold">
-            {investment.project_id}
-          </h3>
+          <<h3 className="text-xl font-bold text-green-400">
+  {
+    projects.find(
+      p => p.id === investment.project_id
+    )?.title
+    || "NO MATCH"
+  }
+
+</h3>
 
         </div>
 
@@ -360,6 +392,49 @@ async function invest(project: any) {
             </button>
           </div>
         </div>
+        <div className="bg-zinc-900 rounded-3xl p-8 mb-12">
+
+  <h2 className="text-3xl font-bold mb-8">
+    Portfolio Allocation
+  </h2>
+
+  <div style={{ width:"100%", height:350 }}>
+
+    <ResponsiveContainer>
+
+      <PieChart>
+
+        <Pie
+          data={chartData}
+          dataKey="value"
+          nameKey="name"
+          outerRadius={120}
+        >
+
+          {chartData.map(
+            (_, index) => (
+
+            <Cell
+              key={index}
+              fill={[
+                "#22c55e",
+                "#3b82f6",
+                "#f59e0b",
+                "#ef4444",
+              ][index % 4]}
+            />
+
+          ))}
+
+        </Pie>
+
+      </PieChart>
+
+    </ResponsiveContainer>
+
+  </div>
+
+</div>
 
         <div className="grid md:grid-cols-4 gap-6 mb-10">
 
