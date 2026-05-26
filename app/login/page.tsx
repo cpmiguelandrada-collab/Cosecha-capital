@@ -2,7 +2,7 @@
 import { initMercadoPago } from "@mercadopago/sdk-react";
 
 import { useEffect, useState } from "react";
-import { supabase } from "./lib/supabase";
+import { supabase } from "../lib/supabase";
 initMercadoPago(
   process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!
 );
