@@ -231,7 +231,7 @@ async function invest(project: any) {
       <div className="min-h-screen bg-black text-white p-10">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-red-500">
-  TEST MIGUEL 999
+  DASHBOARD TEST 777
 </h1>
 
           <button
