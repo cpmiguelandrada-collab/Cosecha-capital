@@ -225,7 +225,22 @@ async function invest(project: any) {
     (acc, inv) => acc + Number(inv.amount),
     0
   );
+const chartData = projects.map(
+  (project) => ({
+    name: project.title,
 
+    value: investments
+      .filter(
+        (i) =>
+          i.project_id === project.id
+      )
+      .reduce(
+        (sum, i) =>
+          sum + Number(i.amount),
+        0
+      ),
+  })
+);
   if (session) {
     return (
       <div className="min-h-screen bg-black text-white p-10">
@@ -539,7 +554,7 @@ async function invest(project: any) {
                     </p>
                   </div>
 
-                  <div className="mt-8">
+<div className="mt-8">
 
   <div className="flex justify-between text-sm mb-3">
 
@@ -551,11 +566,10 @@ async function invest(project: any) {
       {Math.min(
         Math.round(
           (
-            (Number(project.current_amount || 0) /
-              Number(project.target_amount)
-            ) *
-            100
-          ),
+            Number(project.current_amount || 0) /
+            Number(project.target_amount)
+          ) * 100
+        ),
         100
       )}%
     </span>
@@ -567,17 +581,13 @@ async function invest(project: any) {
     <div
       className="h-3 bg-green-500 rounded-full"
       style={{
-        width: `${
-          Math.min(
-            (
-              (Number(project.current_amount || 0) /
-                Number(project.target_amount)
-              ) *
-              100,
-            ),
-            100
-          )
-        }%`,
+        width: `${Math.min(
+          (
+            Number(project.current_amount || 0) /
+            Number(project.target_amount)
+          ) * 100,
+          100
+        )}%`,
       }}
     />
 
@@ -585,16 +595,16 @@ async function invest(project: any) {
 
 </div>
 
-                  <div>
-                    <p className="text-zinc-500 text-sm">
-                      Duración
-                    </p>
+<div>
+  <p className="text-zinc-500 text-sm">
+    Duración
+  </p>
 
-                    <p className="font-semibold">
-                      {project.duration_months} meses
-                    </p>
-                  </div>
-                </div>
+  <p className="font-semibold">
+    {project.duration_months} meses
+  </p>
+</div>
+</div>
 
                 <button
                   onClick={() => invest(project)}
