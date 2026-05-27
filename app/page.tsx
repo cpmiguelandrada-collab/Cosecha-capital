@@ -10,7 +10,7 @@ export default function Home() {
 
       <nav className="flex justify-between items-center px-10 py-6 border-b border-zinc-800">
         <h1 className="text-2xl font-bold text-green-500">
-          Cosecha Capital
+          SUPER TEST 123
         </h1>
 
         <div className="flex gap-4">
