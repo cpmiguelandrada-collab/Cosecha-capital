@@ -245,8 +245,8 @@ const chartData = projects.map(
     return (
       <div className="min-h-screen bg-black text-white p-10">
         <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold text-red-500">
-  DASHBOARD TEST 777
+          <h1 className="text-4xl font-bold">
+  Cosecha Capital
 </h1>
 
           <button
@@ -624,7 +624,7 @@ const chartData = projects.map(
     <div className="min-h-screen flex items-center justify-center bg-black">
       <div className="bg-zinc-900 p-10 rounded-3xl w-full max-w-md space-y-4">
         <h1 className="text-white text-3xl font-bold">
-          SUPER TEST 123
+          COSECHA CAPITAL 
         </h1>
 
         <input
