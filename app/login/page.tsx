@@ -614,7 +614,7 @@ async function invest(project: any) {
     <div className="min-h-screen flex items-center justify-center bg-black">
       <div className="bg-zinc-900 p-10 rounded-3xl w-full max-w-md space-y-4">
         <h1 className="text-white text-3xl font-bold">
-          Cosecha Capital
+          SUPER TEST 123
         </h1>
 
         <input
