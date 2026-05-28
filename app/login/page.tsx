@@ -245,9 +245,15 @@ const chartData = projects.map(
     return (
       <div className="min-h-screen bg-black text-white p-10">
         <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold">
-  Cosecha Capital
-</h1>
+          <div>
+  <h1 className="text-4xl font-bold">
+    Cosecha Capital
+  </h1>
+
+  <p className="text-zinc-400 mt-2">
+    Bienvenido {session.user.email}
+  </p>
+</div>
 
           <button
             onClick={signOut}
@@ -320,9 +326,17 @@ const chartData = projects.map(
             Estado
           </p>
 
-          <h3 className="font-semibold text-green-500">
-            {investment.status}
-          </h3>
+          <span
+  className={`px-3 py-1 rounded-full text-sm font-semibold ${
+    investment.status === "approved"
+      ? "bg-green-600 text-white"
+      : investment.status === "pending"
+      ? "bg-yellow-500 text-black"
+      : "bg-red-600 text-white"
+  }`}
+>
+  {investment.status}
+</span>
 
         </div>
 
