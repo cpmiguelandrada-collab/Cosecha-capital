@@ -108,15 +108,45 @@ console.log("INVESTMENTS:", investments);
   }
 
   async function signIn() {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
 
-    if (error) {
-      alert(error.message);
+  const { error } =
+  await supabase.auth
+  .signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+
+    alert(error.message);
+
+  } else {
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const redirect =
+      params.get("redirect");
+
+    if (
+      redirect === "admin"
+    ) {
+
+      window.location.href =
+        "/admin";
+
+    } else {
+
+      window.location.href =
+        "/login";
+
     }
+
   }
+
+}
 
   async function signOut() {
     await supabase.auth.signOut();

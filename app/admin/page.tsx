@@ -25,6 +25,8 @@ const [duration, setDuration] =
 
 }, []);
 
+
+
 async function checkAuth() {
 
   const {
@@ -35,7 +37,7 @@ async function checkAuth() {
   if (!session) {
 
     window.location.href =
-      "/login";
+"/login?redirect=admin";
 
     return;
 
@@ -93,15 +95,49 @@ setProjects(projectsData);
     loadData();
   }
 
-async function approveInvestment(id: string) {
+async function approveInvestment(
+  investment: any
+) {
+
   await supabase
     .from("investments")
     .update({
       status: "approved",
     })
-    .eq("id", id);
+    .eq("id", investment.id);
+
+  const { data: project } =
+    await supabase
+      .from("projects")
+      .select("current_amount")
+      .eq(
+        "id",
+        investment.project_id
+      )
+      .single();
+
+  if (project) {
+
+    await supabase
+      .from("projects")
+      .update({
+        current_amount:
+          Number(
+            project.current_amount || 0
+          ) +
+          Number(
+            investment.amount
+          ),
+      })
+      .eq(
+        "id",
+        investment.project_id
+      );
+
+  }
 
   loadData();
+
 }
 
 async function rejectInvestment(id: string) {
@@ -385,7 +421,7 @@ Eliminar
               <div className="mt-4 flex gap-4">
   <button
     onClick={() =>
-      approveInvestment(investment.id)
+      approveInvestment(investment)
     }
     className="bg-green-600 px-4 py-2 rounded-lg"
   >
