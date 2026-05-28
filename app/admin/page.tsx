@@ -7,6 +7,14 @@ export default function AdminPage() {
   const [profiles, setProfiles] = useState<any[]>([]);
   const [investments, setInvestments] = useState<any[]>([]);
 
+  const [title, setTitle] = useState("");
+const [description, setDescription] = useState("");
+const [hectares, setHectares] = useState("");
+const [targetAmount, setTargetAmount] =
+  useState("");
+const [duration, setDuration] =
+  useState("");
+
   useEffect(() => {
     loadData();
   }, []);
@@ -71,11 +79,110 @@ async function rejectInvestment(id: string) {
 
   loadData();
 }
+
+async function createProject() {
+
+  await supabase
+    .from("projects")
+    .insert([
+      {
+        title,
+        description,
+        hectares: Number(hectares),
+        target_amount:
+          Number(targetAmount),
+        duration_months:
+          Number(duration),
+        current_amount: 0,
+      },
+    ]);
+
+  setTitle("");
+  setDescription("");
+  setHectares("");
+  setTargetAmount("");
+  setDuration("");
+
+  alert("Proyecto creado");
+
+}
   return (
     <div className="min-h-screen bg-black text-white p-10">
       <h1 className="text-4xl font-bold mb-10">
         Admin Panel
       </h1>
+
+    <div className="bg-zinc-900 rounded-3xl p-6 mb-10">
+
+<h2 className="text-2xl font-bold mb-6">
+  Crear Proyecto
+</h2>
+
+<div className="grid gap-4">
+
+<input
+placeholder="Título"
+value={title}
+onChange={(e)=>
+setTitle(e.target.value)
+}
+className="p-4 rounded-xl bg-zinc-800"
+/>
+
+<input
+placeholder="Descripción"
+value={description}
+onChange={(e)=>
+setDescription(
+e.target.value
+)
+}
+className="p-4 rounded-xl bg-zinc-800"
+/>
+
+<input
+placeholder="Hectáreas"
+value={hectares}
+onChange={(e)=>
+setHectares(
+e.target.value
+)
+}
+className="p-4 rounded-xl bg-zinc-800"
+/>
+
+<input
+placeholder="Objetivo USD"
+value={targetAmount}
+onChange={(e)=>
+setTargetAmount(
+e.target.value
+)
+}
+className="p-4 rounded-xl bg-zinc-800"
+/>
+
+<input
+placeholder="Duración meses"
+value={duration}
+onChange={(e)=>
+setDuration(
+e.target.value
+)
+}
+className="p-4 rounded-xl bg-zinc-800"
+/>
+
+<button
+onClick={createProject}
+className="bg-green-600 py-4 rounded-xl"
+>
+Crear Proyecto
+</button>
+
+</div>
+
+</div>
 
       <div className="bg-zinc-900 rounded-3xl p-6 mb-10">
         <h2 className="text-2xl font-bold mb-6">
