@@ -5,6 +5,8 @@ import { supabase } from "../lib/supabase";
 
 export default function AdminPage() {
   const [profiles, setProfiles] = useState<any[]>([]);
+  const [session, setSession] =
+  useState<any>(null);
   const [investments, setInvestments] = useState<any[]>([]);
   const [projects, setProjects] =
   useState<any[]>([]);
@@ -18,8 +20,32 @@ const [duration, setDuration] =
   useState("");
 
   useEffect(() => {
-    loadData();
-  }, []);
+
+  checkAuth();
+
+}, []);
+
+async function checkAuth() {
+
+  const {
+    data: { session },
+  } =
+  await supabase.auth.getSession();
+
+  if (!session) {
+
+    window.location.href =
+      "/login";
+
+    return;
+
+  }
+
+  setSession(session);
+
+  loadData();
+
+}
 
   async function loadData() {
     const { data: profilesData } = await supabase
@@ -128,6 +154,28 @@ async function deleteProject(
   loadData();
 
 }
+if (
+  session &&
+  session.user.email !==
+    "cp.miguelandrada@gmail.com"
+) {
+
+  return (
+
+    <div className="min-h-screen bg-black text-white flex items-center justify-center">
+
+      <h1 className="text-3xl font-bold text-red-500">
+
+        Acceso denegado
+
+      </h1>
+
+    </div>
+
+  );
+
+}
+
   return (
     <div className="min-h-screen bg-black text-white p-10">
       <h1 className="text-4xl font-bold mb-10">
