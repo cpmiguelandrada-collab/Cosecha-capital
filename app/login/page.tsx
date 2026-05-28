@@ -445,6 +445,9 @@ const chartData = projects.map(
   <h2 className="text-3xl font-bold mb-8">
     Portfolio Allocation
   </h2>
+  <p className="text-zinc-400 mb-6">
+  Distribución de inversiones por proyecto
+</p>
 
   <div style={{ width:"100%", height:350 }}>
 
@@ -453,11 +456,12 @@ const chartData = projects.map(
       <PieChart>
 
         <Pie
-          data={chartData}
-          dataKey="value"
-          nameKey="name"
-          outerRadius={120}
-        >
+  data={chartData}
+  dataKey="value"
+  nameKey="name"
+  outerRadius={120}
+  label
+>
 
           {chartData.map(
             (_, index) => (
