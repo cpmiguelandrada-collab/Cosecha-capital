@@ -6,6 +6,8 @@ import { supabase } from "../lib/supabase";
 export default function AdminPage() {
   const [profiles, setProfiles] = useState<any[]>([]);
   const [investments, setInvestments] = useState<any[]>([]);
+  const [projects, setProjects] =
+  useState<any[]>([]);
 
   const [title, setTitle] = useState("");
 const [description, setDescription] = useState("");
@@ -27,11 +29,18 @@ const [duration, setDuration] =
     const { data: investmentsData } = await supabase
       .from("investments")
       .select("*");
+    const { data: projectsData } =
+await supabase
+.from("projects")
+.select("*");
 
     if (profilesData) setProfiles(profilesData);
 
     if (investmentsData)
       setInvestments(investmentsData);
+
+    if (projectsData)
+setProjects(projectsData);
   }
 
   async function approveKyc(id: string) {
@@ -104,6 +113,19 @@ async function createProject() {
   setDuration("");
 
   alert("Proyecto creado");
+
+}
+
+async function deleteProject(
+  id: string
+) {
+
+  await supabase
+    .from("projects")
+    .delete()
+    .eq("id", id);
+
+  loadData();
 
 }
   return (
@@ -179,6 +201,54 @@ className="bg-green-600 py-4 rounded-xl"
 >
 Crear Proyecto
 </button>
+
+</div>
+
+</div>
+
+<div className="bg-zinc-900 rounded-3xl p-6 mb-10">
+
+<h2 className="text-2xl font-bold mb-6">
+  Proyectos
+</h2>
+
+<div className="space-y-4">
+
+{projects.map((project)=>(
+
+<div
+key={project.id}
+className="bg-zinc-800 p-4 rounded-xl"
+>
+
+<p>
+<strong>Título:</strong>
+{" "}
+{project.title}
+</p>
+
+<p>
+<strong>Objetivo:</strong>
+USD {project.target_amount}
+</p>
+
+<p>
+<strong>Duración:</strong>
+{project.duration_months} meses
+</p>
+
+<button
+onClick={()=>
+deleteProject(project.id)
+}
+className="mt-4 bg-red-600 px-4 py-2 rounded-lg"
+>
+Eliminar
+</button>
+
+</div>
+
+))}
 
 </div>
 
